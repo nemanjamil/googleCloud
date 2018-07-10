@@ -6283,7 +6283,7 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #dee2e6; } }
 
 #mainform input.input_hash_salt {
-  width: 500px; }
+  width: 100%; }
 
 .tab-height {
   min-height: 300px; }

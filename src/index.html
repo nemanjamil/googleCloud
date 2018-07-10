@@ -57,9 +57,10 @@
 
 
     <form class="form-inline mt-3" id="mainform">
-        <div class="mb-2">
+        <div class="mb-2 col-lg-6">
             <input type="text" class="form-control input_hash_salt" id="inputPassword2" placeholder="HASH_SALT">
         </div>
+
 
     </form>
 
@@ -83,27 +84,32 @@
             <button type="submit" class="btn btn-light">Download</button>
         </form>
 
-    </div>
 
+        <div class="mt-3 border">
 
-    <div class="mt-3 border">
+            <nav class="nav nav-pills tabsjson">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#home">JSON</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#menu1">XML</a>
+            </nav>
 
-        <nav class="nav nav-pills tabsjson">
-            <a class="nav-item nav-link active" data-toggle="tab" href="#home">JSON</a>
-            <a class="nav-item nav-link" data-toggle="tab" href="#menu1">XML</a>
-        </nav>
+            <div class="tab-content mt-3 tab-height">
 
-        <div class="tab-content mt-3 tab-height">
+                <div id="home" class="tab-pane fade show active">
+                    <pre class="jsonview"></pre>
+                </div>
 
-            <div id="home" class="tab-pane fade show active">
-                <pre class="jsonview"></pre>
-            </div>
-
-            <div id="menu1" class="tab-pane fade">
-                <textarea class=" textareawidth form-control showxml"></textarea>
+                <div id="menu1" class="tab-pane fade">
+                    <textarea class=" textareawidth form-control showxml"></textarea>
+                </div>
             </div>
         </div>
+
     </div>
+
+
+
+
+
 
 
 </div>
