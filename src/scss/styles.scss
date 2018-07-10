@@ -1,0 +1,22 @@
+$bg-color : white;
+$body-bg: #ededed;
+
+$theme-colors: (
+        "primary": #d95700
+);
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+
+#mainform {
+
+  input.input_hash_salt {
+    width: 500px;
+  }
+}
+/*body {
+  background: $bg-color;
+}
+
+.sikimiki {
+  background-color: black;
+}*/
