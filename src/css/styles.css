@@ -6285,21 +6285,19 @@ a.text-dark:hover, a.text-dark:focus {
 #mainform input.input_hash_salt {
   width: 500px; }
 
+.tab-height {
+  min-height: 300px; }
+
 .textareawidth {
   min-width: 100%;
   border: none;
-  min-height: 300px;
   background: transparent;
-  outline: none; }
+  outline: none;
+  box-sizing: border-box;
+  min-height: 300px;
+  margin: 0px auto;
+  display: block; }
 
 .tabsjson a {
   background-color: #f8f9fa;
   color: black; }
-
-/*body {
-  background: $bg-color;
-}
-
-.sikimiki {
-  background-color: black;
-}*/
