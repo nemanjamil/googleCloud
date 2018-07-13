@@ -11,64 +11,59 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/styles.css">
-
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="/src/scss/styles.scss">
     <link rel="stylesheet" type="text/css" href="css/dist/bootstrap-duallistbox.css">
 
+    <!--remove for production-->
+   <!-- <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/src/scss/styles.scss">-->
 
-    <title>Hello, world!</title>
+    <!--end remove for production-->
+
+
+    <title>Hello, world of exams!</title>
 </head>
 <body>
 
 
 <div class="container">
-    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-         <a class="navbar-brand" href="#">Navbar</a>
 
-         <button class="navbar-toggler"
-                 type="button"
-                 data-toggle="collapse"
-                 data-target="#navbarSupportedContent"
-                 aria-controls="navbarSupportedContent"
-                 aria-expanded="false"
-                 aria-label="Toggle navigation">
-             <span class="navbar-toggler-icon"></span>
-         </button>
-
-         <div class="collapse  navbar-collapse" id="navbarSupportedContent">
-             <ul class="navbar-nav ml-auto">
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Home</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">About</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Products</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Contact</a>
-                 </li>
-             </ul>
-
-         </div>
-     </nav>-->
+    <!-- Modal -->
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Alert</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="popuptext"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <form class="form-inline mt-3" id="mainform">
         <div class="mb-2 col-lg-6">
-            <input type="text" class="form-control input_hash_salt" id="inputPassword2" placeholder="HASH_SALT">
+            <input type="text" class="form-control input_hash_salt" id="inputhashsalt" placeholder="HASH_SALT">
         </div>
 
+        <div>
+            <span id="loading"></span>
+        </div>
 
     </form>
 
     <div class="container">
 
         <form id="demoform" action="#" method="post">
-            <select multiple="multiple" size="10" name="duallistbox_demo1[]" title="duallistbox_demo1[]">
-                <option value="option1">Option 1</option>
+            <select id="selectList" multiple="multiple" size="10" name="duallistbox_demo1[]" title="duallistbox_demo1[]">
+               <!-- <option value="option1">Option 1</option>
                 <option value="option2">Option 2</option>
                 <option value="option3" selected="selected">Option 3</option>
                 <option value="option4">Option 4</option>
@@ -77,7 +72,7 @@
                 <option value="option7">Option 7</option>
                 <option value="option8">Option 8</option>
                 <option value="option9">Option 9</option>
-                <option value="option0">Option 10</option>
+                <option value="option0">Option 10</option>-->
             </select>
             <br>
             <button type="submit" class="btn btn-light">Generate</button>

@@ -6301,3 +6301,6 @@ a.text-dark:hover, a.text-dark:focus {
 .tabsjson a {
   background-color: #f8f9fa;
   color: black; }
+
+#demoform {
+  font-size: 10px; }
