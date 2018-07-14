@@ -1,19 +1,16 @@
-
-
-
 $(document).ready(function () {
 
+    var $serverlink = "http://examserver/storage/";
     var $duallist = 'select[name="duallistbox_demo1[]"]';
-
     var demo1 = $($duallist).bootstrapDualListbox();
 
-    $("#demoform").submit(function (e) {
+    $("#demoform button").click(function (ev) {
+        ev.preventDefault();
 
-        e.preventDefault();
         serialData = $($duallist).val();
         hashSaltvalue = $("#inputhashsalt").val();
 
-        if (serialData.length==0) {
+        if (serialData.length == 0) {
             $("#popuptext").html("You must have one exam selected");
             $('.modal').modal('show');
             return;
@@ -26,22 +23,38 @@ $(document).ready(function () {
             return;
         }
 
-        
+
         $url = "http://examserver/api/1.0/sentdata";
         $.ajax({
             url: $url,
             type: "POST",
             //dataType: "JSON",
-            data: { data: serialData, hash_salt: hashSaltvalue },
+            data: {data: serialData, hash_salt: hashSaltvalue,savedata : $(this).attr("value")},
             success: function (result) {
-                //console.log(result);
                 if (result.status) {
                     $(".jsonview").text(vkbeautify.json(result.json));
-
-                    /*xml = '<?xml version="1.0" encoding="UTF-8"?><note><to>Tove</to><from>Jani</from>' +
-                        '<heading>Reminder</heading>' +
-                        '<body>Don\'t forget me this weekend!</body></note>';*/
                     $(".showxml").text(vkbeautify.xml(result.xml, 5));  // text, html, append
+
+                    if (result.savedata){
+                        $("#popuptext").html("");
+
+                        $('#popuptext').append(
+                            $('<ul>').append(
+                                $('<li>').append(
+                                    $('<a>').attr('href',$serverlink+result.savedata+'/'+result.savedata+'.json').attr('target','_blank').append("JSON")
+                                ),
+
+                                $('<li>').append(
+                                    $('<a>').attr('href',$serverlink+result.savedata+'/'+result.savedata+'.xml').attr('target','_blank').append("XML")
+                                ),
+                                $('<li>').append(
+                                    $('<a>').attr('href',$serverlink+result.savedata+'/'+result.savedata+'.SALT').attr('target','_blank').append("SALT")
+                                )
+                            ));
+
+                        $('.modal').modal('show');
+                        return;
+                    }
 
                 } else {
                     $("#popuptext").html("");
@@ -59,27 +72,28 @@ $(document).ready(function () {
     });
 
     var lastState = $($duallist).val();
-  $("#selectList").on("change", function () {
+    $("#selectList").on("change", function () {
         /*var sel = $('#selectList').val(); // option:selected kada se dodao samo prvi prikaze
-        console.log("sel : " + sel);
+         console.log("sel : " + sel);
 
-        var selee = $('#selectList:selected').length;
-        console.log(selee);
+         var selee = $('#selectList:selected').length;
+         console.log(selee);
 
-        val = $('#selectList option:selected').val();
-        console.log('val : '+val);
+         val = $('#selectList option:selected').val();
+         console.log('val : '+val);
 
-        console.log($(this).val());
-        var newState = $(this).val();
-        console.log(lastState);                        // selected before
-        console.log(newState);                         // selected now
-        console.log($(lastState).not(newState).get()); // added elements
-        console.log($(newState).not(lastState).get()); // removed elements*/
+         console.log($(this).val());
+         var newState = $(this).val();
+         console.log(lastState);                        // selected before
+         console.log(newState);                         // selected now
+         console.log($(lastState).not(newState).get()); // added elements
+         console.log($(newState).not(lastState).get()); // removed elements*/
 
     });
 
 
     var $loading = $('#loading');
+
     function xhr_get(url) {
         return $.ajax({
             url: url,
@@ -98,25 +112,15 @@ $(document).ready(function () {
     }
 
 
-
-
-
-
     var $url = "http://examserver.beodigital.tech/api/1.0/all";
     xhr_get($url).done(function (data) {
-        console.log(data);
         $($duallist).empty();
         $.each(data, function (i, item) {
-            value = item["sqms_exam_version_id"]+'|'+item["sqms_language_id"]+'|'+item["sqms_syllabus_id"]
-            $($duallist).append($('<option lang="'+item["sqms_language_id"]+'" value="' + value + '">'+item["sqms_exam_version_id"]+ ' ' + item["sqms_exam_version_name"] + ' </option>'));
+            value = item["sqms_exam_version_id"] + '|' + item["sqms_language_id"] + '|' + item["sqms_syllabus_id"]
+            $($duallist).append($('<option lang="' + item["sqms_language_id"] + '" value="' + value + '">' + item["sqms_exam_version_id"] + ' ' + item["sqms_exam_version_name"] + ' </option>'));
         });
         $($duallist).bootstrapDualListbox('refresh', true);
     });
-
-  /*  var $url = "http://examserver/api/1.0/hashsalt";
-    xhr_get($url).done(function (data) {
-        $("#inputhashsalt").val(data);
-    });*/
 
 
 });
