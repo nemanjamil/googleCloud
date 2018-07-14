@@ -35,8 +35,20 @@ $(document).ready(function () {
             data: { data: serialData, hash_salt: hashSaltvalue },
             success: function (result) {
                 //console.log(result);
-                jsonexample = '{"menu":{"id": "file","value": [1,2,3],"popup":{"menuitem":[{"value":["one","two"],"onclick":"CreateNewDoc()"},{"value":"Close","onclick":"CloseDoc()"}]}}}';
-                $(".jsonview").text(vkbeautify.json(result));
+                if (result.status) {
+                    $(".jsonview").text(vkbeautify.json(result.json));
+
+                    /*xml = '<?xml version="1.0" encoding="UTF-8"?><note><to>Tove</to><from>Jani</from>' +
+                        '<heading>Reminder</heading>' +
+                        '<body>Don\'t forget me this weekend!</body></note>';*/
+                    $(".showxml").text(vkbeautify.xml(result.xml, 5));  // text, html, append
+
+                } else {
+                    $("#popuptext").html("");
+                    $("#popuptext").html(result.message);
+                    $('.modal').modal('show');
+                    return;
+                }
             },
             error: function () {
                 alert("Error oops.");
@@ -86,10 +98,7 @@ $(document).ready(function () {
     }
 
 
-    xml = '<?xml version="1.0" encoding="UTF-8"?><note><to>Tove</to><from>Jani</from>' +
-        '<heading>Reminder</heading>' +
-        '<body>Don\'t forget me this weekend!</body></note>';
-    $(".showxml").text(vkbeautify.xml(xml, 5));  // text, html, append
+
 
 
 
@@ -104,10 +113,10 @@ $(document).ready(function () {
         $($duallist).bootstrapDualListbox('refresh', true);
     });
 
-    var $url = "http://examserver/api/1.0/hashsalt";
+  /*  var $url = "http://examserver/api/1.0/hashsalt";
     xhr_get($url).done(function (data) {
         $("#inputhashsalt").val(data);
-    });
+    });*/
 
 
 });
