@@ -1,8 +1,13 @@
 $(document).ready(function () {
 
-    var $serverlink = "http://examserver/storage/";
+    //var $serverlink = "http://examserver/storage/";
+    var $serverlink = "http://examserver.beodigital.tech/";
     var $duallist = 'select[name="duallistbox_demo1[]"]';
-    var demo1 = $($duallist).bootstrapDualListbox();
+    var demo1 = $($duallist).bootstrapDualListbox({
+        infoText: ''
+
+    });
+
 
     $("#demoform button").click(function (ev) {
         ev.preventDefault();
@@ -23,32 +28,31 @@ $(document).ready(function () {
             return;
         }
 
-
-        $url = "http://examserver/api/1.0/sentdata";
+        $url = $serverlink + "api/1.0/sentdata";
         $.ajax({
             url: $url,
             type: "POST",
             //dataType: "JSON",
-            data: {data: serialData, hash_salt: hashSaltvalue,savedata : $(this).attr("value")},
+            data: {data: serialData, hash_salt: hashSaltvalue, savedata: $(this).attr("value")},
             success: function (result) {
                 if (result.status) {
                     $(".jsonview").text(vkbeautify.json(result.json));
                     $(".showxml").text(vkbeautify.xml(result.xml, 5));  // text, html, append
 
-                    if (result.savedata){
+                    if (result.savedata) {
                         $("#popuptext").html("");
-
+                        serverlinkStorage = $serverlink + 'storage/'
                         $('#popuptext').append(
                             $('<ul>').append(
                                 $('<li>').append(
-                                    $('<a>').attr('href',$serverlink+result.savedata+'/'+result.savedata+'.json').attr('target','_blank').append("JSON")
+                                    $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.json').attr('target', '_blank').append("JSON")
                                 ),
 
                                 $('<li>').append(
-                                    $('<a>').attr('href',$serverlink+result.savedata+'/'+result.savedata+'.xml').attr('target','_blank').append("XML")
+                                    $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.xml').attr('target', '_blank').append("XML")
                                 ),
                                 $('<li>').append(
-                                    $('<a>').attr('href',$serverlink+result.savedata+'/'+result.savedata+'.SALT').attr('target','_blank').append("SALT")
+                                    $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.SALT').attr('target', '_blank').append("SALT")
                                 )
                             ));
 
@@ -68,26 +72,36 @@ $(document).ready(function () {
             }
         });
 
-
     });
 
     var lastState = $($duallist).val();
+
     $("#selectList").on("change", function () {
-        /*var sel = $('#selectList').val(); // option:selected kada se dodao samo prvi prikaze
-         console.log("sel : " + sel);
 
-         var selee = $('#selectList:selected').length;
-         console.log(selee);
+        firstelement = demo1.bootstrapDualListbox()[0].value;
+        var firstitems = firstelement.split('|');
+        firstlangitem = firstitems[1];
+        firstsampleitem = firstitems[2];
 
-         val = $('#selectList option:selected').val();
-         console.log('val : '+val);
+        allelements = $(this).val();
 
-         console.log($(this).val());
-         var newState = $(this).val();
-         console.log(lastState);                        // selected before
-         console.log(newState);                         // selected now
-         console.log($(lastState).not(newState).get()); // added elements
-         console.log($(newState).not(lastState).get()); // removed elements*/
+        if (allelements.length > 1) {
+            last_element = allelements[allelements.length - 1];
+            var items = last_element.split('|');
+            langitem = items[1];
+            sampleitem = items[2];
+
+            console.log("FIRST ITEM : "+firstelement+" - "+firstlangitem+" - "+firstsampleitem);
+            console.log("SECOND ITEM : "+last_element+" - "+langitem+" - "+sampleitem);
+
+            if (firstlangitem!=langitem || firstsampleitem!=sampleitem) {
+                $('#selectList option[value="'+last_element+'"]').prop('selected',false);
+            }
+
+        }
+
+        demo1.bootstrapDualListbox('refresh', true);
+
 
     });
 
@@ -112,12 +126,12 @@ $(document).ready(function () {
     }
 
 
-    var $url = "http://examserver.beodigital.tech/api/1.0/all";
+    var $url = $serverlink + "api/1.0/all";
     xhr_get($url).done(function (data) {
         $($duallist).empty();
         $.each(data, function (i, item) {
-            value = item["sqms_exam_version_id"] + '|' + item["sqms_language_id"] + '|' + item["sqms_syllabus_id"]
-            $($duallist).append($('<option lang="' + item["sqms_language_id"] + '" value="' + value + '">' + item["sqms_exam_version_id"] + ' ' + item["sqms_exam_version_name"] + ' </option>'));
+            value = item["sqms_exam_version_id"] + '|' + item["sqms_language_id"] + '|' + item["sqms_exam_version_sample_set"]
+            $($duallist).append($('<option sample="' + item["sqms_exam_version_sample_set"] + '" lang="' + item["sqms_language_id"] + '" value="' + value + '">' + item["sqms_exam_version_id"] + ' ' + item["sqms_exam_version_name"] + ' </option>'));
         });
         $($duallist).bootstrapDualListbox('refresh', true);
     });
