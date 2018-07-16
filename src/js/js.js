@@ -1,11 +1,10 @@
 $(document).ready(function () {
 
-    //var $serverlink = "http://examserver/storage/";
+    //var $serverlink = "http://examserver/";
     var $serverlink = "http://examserver.beodigital.tech/";
     var $duallist = 'select[name="duallistbox_demo1[]"]';
     var demo1 = $($duallist).bootstrapDualListbox({
         infoText: ''
-
     });
 
 
@@ -74,7 +73,6 @@ $(document).ready(function () {
 
     });
 
-    var lastState = $($duallist).val();
 
     $("#selectList").on("change", function () {
 
@@ -90,19 +88,18 @@ $(document).ready(function () {
             var items = last_element.split('|');
             langitem = items[1];
             sampleitem = items[2];
+            if (firstlangitem != langitem || firstsampleitem != sampleitem) {
 
-            console.log("FIRST ITEM : "+firstelement+" - "+firstlangitem+" - "+firstsampleitem);
-            console.log("SECOND ITEM : "+last_element+" - "+langitem+" - "+sampleitem);
+                $('#selectList option[value="' + last_element + '"]').prop('selected', false);
+                demo1.bootstrapDualListbox('refresh', true);
 
-            if (firstlangitem!=langitem || firstsampleitem!=sampleitem) {
-                $('#selectList option[value="'+last_element+'"]').prop('selected',false);
+                $("#popuptext").html("");
+                $("#popuptext").html("You can't add this exam");
+                $('.modal').modal('show');
+
             }
 
         }
-
-        demo1.bootstrapDualListbox('refresh', true);
-
-
     });
 
 
