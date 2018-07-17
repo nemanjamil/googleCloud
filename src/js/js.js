@@ -81,6 +81,9 @@ $(document).ready(function () {
         firstlangitem = firstitems[1];
         firstsampleitem = firstitems[2];
 
+        $(".jsonview").empty();
+        $(".showxml").empty();
+
         allelements = $(this).val();
 
         if (allelements.length > 1) {
