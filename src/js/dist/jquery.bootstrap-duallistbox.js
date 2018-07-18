@@ -411,8 +411,8 @@
                 '   </span>' +
                 '   <input class="form-control filter" type="text">' +
                 '   <div class="btn-group buttons">' +
-                '     <button type="button" class="btn moveall"></button>' +
-                '     <button type="button" class="btn move"></button>' +
+                //'     <button type="button" class="btn moveall"></button>' +
+                //'     <button type="button" class="btn move"></button>' +
                 '   </div>' +
                 '   <select multiple="multiple"></select>' +
                 ' </div>' +
@@ -424,8 +424,8 @@
                 '   </span>' +
                 '   <input class="form-control filter" type="text">' +
                 '   <div class="btn-group buttons">' +
-                '     <button type="button" class="btn remove"></button>' +
-                '     <button type="button" class="btn removeall"></button>' +
+                //'     <button type="button" class="btn remove"></button>' +
+                //'     <button type="button" class="btn removeall"></button>' +
                 '   </div>' +
                 '   <select multiple="multiple"></select>' +
                 ' </div>' +

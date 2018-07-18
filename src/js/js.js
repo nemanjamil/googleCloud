@@ -4,7 +4,8 @@ $(document).ready(function () {
     var $serverlink = "http://examserver.beodigital.tech/";
     var $duallist = 'select[name="duallistbox_demo1[]"]';
     var demo1 = $($duallist).bootstrapDualListbox({
-        infoText: ''
+        infoText: '',
+        selectorMinimalHeight: 300
     });
 
 
@@ -91,13 +92,24 @@ $(document).ready(function () {
             var items = last_element.split('|');
             langitem = items[1];
             sampleitem = items[2];
-            if (firstlangitem != langitem || firstsampleitem != sampleitem) {
+            if (firstlangitem != langitem) {
 
                 $('#selectList option[value="' + last_element + '"]').prop('selected', false);
                 demo1.bootstrapDualListbox('refresh', true);
 
                 $("#popuptext").html("");
-                $("#popuptext").html("You can't add this exam");
+                $("#popuptext").html("You can't add this exam set, because the one you already selected has an other language");
+                $('.modal').modal('show');
+
+            }
+
+            if (firstsampleitem != sampleitem) {
+
+                $('#selectList option[value="' + last_element + '"]').prop('selected', false);
+                demo1.bootstrapDualListbox('refresh', true);
+
+                $("#popuptext").html("");
+                $("#popuptext").html("You can't add this exam set, because the one you already selected is a sample exam set and this must not be combiened with a normal exam set");
                 $('.modal').modal('show');
 
             }
