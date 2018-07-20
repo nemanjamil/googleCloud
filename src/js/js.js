@@ -92,6 +92,8 @@ $(document).ready(function () {
             var items = last_element.split('|');
             langitem = items[1];
             sampleitem = items[2];
+
+
             if (firstlangitem != langitem) {
 
                 $('#selectList option[value="' + last_element + '"]').prop('selected', false);
@@ -109,7 +111,15 @@ $(document).ready(function () {
                 demo1.bootstrapDualListbox('refresh', true);
 
                 $("#popuptext").html("");
-                $("#popuptext").html("You can't add this exam set, because the one you already selected is a sample exam set and this must not be combiened with a normal exam set");
+                if (firstsampleitem==1) {
+
+                    $("#popuptext").html("You can't add this exam set, because the one you already selected is a " +
+                        "sample exam set and this must not be combiened with a normal exam set");
+                } else {
+                    $("#popuptext").html("You can't add this exam set, because the one you already selected is a " +
+                        "normal exam set and this must not be combiened with a sample exam set");
+                }
+
                 $('.modal').modal('show');
 
             }
