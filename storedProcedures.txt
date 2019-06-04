@@ -1,0 +1,94 @@
+DELIMITER $$
+
+USE `bpmspace_sqms_v6_a`$$
+
+DROP PROCEDURE IF EXISTS `countexams`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `countexams`(IN idarray VARCHAR(255))
+BEGIN
+	SET @sql = CONCAT('SELECT COUNT(*) as questionTotal FROM sqms_question_answer_exam_version_2 
+	WHERE sqms_exam_version_id IN (', idarray, ')
+	ORDER BY sqms_exam_version_id,sqms_question_id, sqms_answer_id DESC');
+	PREPARE stmt FROM @sql;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+  
+    END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+USE `bpmspace_sqms_v6_a`$$
+
+DROP PROCEDURE IF EXISTS `examnames`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `examnames`(IN idarray VARCHAR(255))
+BEGIN
+	SET @sql = CONCAT('SELECT * FROM sqms_exam_version WHERE sqms_exam_version_id IN (', idarray, ')');
+	PREPARE stmt FROM @sql;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+  
+    END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+USE `bpmspace_sqms_v6_a`$$
+
+DROP PROCEDURE IF EXISTS `examquestions`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `examquestions`(IN idarray VARCHAR(255))
+BEGIN
+    
+	SET @sql = CONCAT('SELECT  DISTINCT q2.sqms_question_id, q2.sqms_exam_version_id, sq.question  FROM sqms_question_answer_exam_version_2 q2 
+	JOIN sqms_question sq ON sq.sqms_question_id = q2.sqms_question_id
+	WHERE q2.sqms_exam_version_id IN (',idarray,')
+	ORDER BY q2.sqms_exam_version_id,q2.sqms_question_id, q2.sqms_answer_id DESC;');
+	PREPARE stmt FROM @sql;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+    END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+USE `bpmspace_sqms_v6_a`$$
+
+DROP PROCEDURE IF EXISTS `listanswers`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `listanswers`( IN luckynumberone INT(10) ,  IN luckynumbertwo INT(10))
+BEGIN
+	
+	SELECT sa.sqms_answer_id,sa.answer, sa.correct,sa.sqms_question_id 
+	 FROM sqms_question_answer_exam_version_2 a2 
+	 JOIN sqms_answer sa ON  sa.sqms_answer_id =  a2.sqms_answer_id
+	WHERE a2.sqms_exam_version_id = luckynumberone AND a2.sqms_question_id = luckynumbertwo
+	ORDER BY sa.sqms_answer_id;
+    END$$
+
+DELIMITER ;
+
+
+DELIMITER $$
+
+USE `bpmspace_sqms_v6_a`$$
+
+DROP PROCEDURE IF EXISTS `question`$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `question`(IN idarray VARCHAR(255))
+BEGIN
+	SET @sql = CONCAT('SELECT question FROM sqms_question WHERE sqms_question_id IN (', idarray, ')');
+	PREPARE stmt FROM @sql;
+	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+  
+    END$$
+
+DELIMITER ;

@@ -1,0 +1,50 @@
+mariadb011
+
+user nemanja nemanjamil011
+
+sudo apt-get --purge remove "mysql*"
+sudo apt-get autoremove
+sudo apt-get autoclean
+
+mysql -uroot -p
+
+php -m // lista modula extenzija
+
+https://downloads.mariadb.org/mariadb/repositories/#mirror=coreix&distro=Ubuntu&distro_release=bionic--ubuntu_bionic&version=10.3
+https://websiteforstudents.com/installing-mariadb-database-server-on-ubuntu-18-04-lts-beta-server/
+
+sudo apt install mariadb-client-10.3
+
+
+<VirtualHost *:80>
+    ServerAdmin nemanjamil@gmail.com
+    ServerName exam.beodigital.tech
+    ServerAlias exam.beodigital.tech
+    DocumentRoot /var/www/exam
+    ErrorLog ${APACHE_LOG_DIR}/error-exam.log
+    CustomLog ${APACHE_LOG_DIR}/access-exam.log combined
+</VirtualHost>
+
+apt-get install php libapache2-mod-php php-pear php-dev php-zip php-curl php-gd  php-xml   php-mbstring php-gettext 
+sudo apt-get install  php-mcrypt
+
+
+
+sudo apt-get install phpmyadmin 
+GRANT ALL PRIVILEGES ON *.* TO 'debian-sys-maint'@'localhost' IDENTIFIED BY 'cluster011';
+SELECT User, Host, Password FROM mysql.user; 
+
+https://stackoverflow.com/questions/26891721/phpmyadmin-not-found-after-install-on-apache-ubuntu // sta da dodamo u php apachie confifg
+
+
+https://support.plesk.com/hc/en-us/articles/213361889-Unable-to-start-MySQL-Access-denied-for-user-debian-sys-maint-localhost-using-password-YES-
+
+UPDATE mysql.user SET Password = password('4blkBagGgUUeEVNm') WHERE User = 'debian-sys-maint';
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-12-04
+
+
+https://cloud.google.com/solutions/mysql-remote-access // remote connection
+
+CREATE USER 'testuser'@'10.156.0.2' IDENTIFIED BY 'testuser011';
+GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'10.156.0.2' IDENTIFIED BY 'testuser011';

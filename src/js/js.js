@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
-    //var $serverlink = "http://examserver/";
-    var $serverlink = "http://examserver.beodigital.tech/";
+    var $serverlink = "http://examserver/";
+    //var $serverlink = "http://examserver.beodigital.tech/";
     var $duallist = 'select[name="duallistbox_demo1[]"]';
     var demo1 = $($duallist).bootstrapDualListbox({
         infoText: '',
@@ -40,23 +40,23 @@ $(document).ready(function () {
                     $(".showxml").text(vkbeautify.xml(result.xml, 5));  // text, html, append
 
                     if (result.savedata) {
-                        $("#popuptext").html("");
-                        serverlinkStorage = $serverlink + 'storage/'
-                        $('#popuptext').append(
-                            $('<ul>').append(
-                                $('<li>').append(
-                                    $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.json').attr('target', '_blank').append("JSON")
-                                ),
+                            $("#popuptext").html("");
+                            serverlinkStorage = $serverlink + 'storage/'
+                            $('#popuptext').append(
+                                $('<ul>').append(
+                                    $('<li>').append(
+                                        $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.json').attr('target', '_blank').append("JSON")
+                                    ),
 
-                                $('<li>').append(
-                                    $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.xml').attr('target', '_blank').append("XML")
-                                ),
-                                $('<li>').append(
-                                    $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.SALT').attr('target', '_blank').append("SALT")
-                                )
-                            ));
+                                    $('<li>').append(
+                                        $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.xml').attr('target', '_blank').append("XML")
+                                    ),
+                                    $('<li>').append(
+                                        $('<a>').attr('href', serverlinkStorage + result.savedata + '/' + result.savedata + '.SALT').attr('target', '_blank').append("SALT")
+                                    )
+                                ));
 
-                        $('.modal').modal('show');
+                            $('.modal').modal('show');
                         return;
                     }
 
