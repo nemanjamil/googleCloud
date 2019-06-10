@@ -1,7 +1,20 @@
+
+
 $(document).ready(function () {
 
-    var $serverlink = "http://examserver/";
-    //var $serverlink = "http://examserver.beodigital.tech/";
+    var $serverlink = "";
+
+    $.ajax({
+        url: "/env.json",
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+             $serverlink = data.host;
+        }
+    });
+
+    // var $serverlink = "http://examserver/";
+    // var $serverlink = "http://examserver.beodigital.tech/";
     var $duallist = 'select[name="duallistbox_demo1[]"]';
     var demo1 = $($duallist).bootstrapDualListbox({
         infoText: '',
