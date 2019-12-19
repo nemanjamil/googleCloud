@@ -27,6 +27,7 @@ $(document).ready(function () {
 
         serialData = $($duallist).val();
         hashSaltvalue = $("#inputhashsalt").val();
+        successpercent = $("#successpercent").val();
 
         if (serialData.length == 0) {
             $("#popuptext").html("You must have one exam selected");
@@ -40,15 +41,25 @@ $(document).ready(function () {
             $('.modal').modal('show');
             return;
         }
+        if (!successpercent) {
+            $("#popuptext").html("");
+            $("#popuptext").html("You must enter seccess percent");
+            $('.modal').modal('show');
+            return;
+        }
 
         $url = $serverlink + "api/1.0/sentdata";
         $.ajax({
             url: $url,
             type: "POST",
             //dataType: "JSON",
-            data: {data: serialData, hash_salt: hashSaltvalue, savedata: $(this).attr("value")},
+            data: {data: serialData, hash_salt: hashSaltvalue, savedata: $(this).attr("value"), successpercent: successpercent },
+            beforeSend: function() {
+                $("#loading-button").html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
+            },
             success: function (result) {
                 if (result.status) {
+                    $("#loading-button").html('');
                     $(".jsonview").text(vkbeautify.json(result.json));
                     $(".showxml").text(vkbeautify.xml(result.xml, 5));  // text, html, append
 
@@ -77,6 +88,7 @@ $(document).ready(function () {
                     $("#popuptext").html("");
                     $("#popuptext").html(result.message);
                     $('.modal').modal('show');
+                    $("#loading-button").html('');
                     return;
                 }
             },
