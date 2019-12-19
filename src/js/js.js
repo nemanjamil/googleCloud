@@ -28,6 +28,7 @@ $(document).ready(function () {
         serialData = $($duallist).val();
         hashSaltvalue = $("#inputhashsalt").val();
         successpercent = $("#successpercent").val();
+        nameofexam = $("#nameofexam").val();
 
         if (serialData.length == 0) {
             $("#popuptext").html("You must have one exam selected");
@@ -38,6 +39,12 @@ $(document).ready(function () {
         if (!hashSaltvalue) {
             $("#popuptext").html("");
             $("#popuptext").html("You must enter HASH_SALT");
+            $('.modal').modal('show');
+            return;
+        }
+        if (!nameofexam) {
+            $("#popuptext").html("");
+            $("#popuptext").html("You must enter NAME OF EXAM");
             $('.modal').modal('show');
             return;
         }
@@ -53,7 +60,7 @@ $(document).ready(function () {
             url: $url,
             type: "POST",
             //dataType: "JSON",
-            data: {data: serialData, hash_salt: hashSaltvalue, savedata: $(this).attr("value"), successpercent: successpercent },
+            data: {data: serialData, hash_salt: hashSaltvalue, savedata: $(this).attr("value"), successpercent: successpercent, nameofexam: nameofexam },
             beforeSend: function() {
                 $("#loading-button").html('<div class="spinner-border" role="status"><span class="sr-only">Loading...</span></div>');
             },
